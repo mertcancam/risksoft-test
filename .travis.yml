@@ -6,7 +6,7 @@ before_install:
   - docker build -t mertcancam/vue-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run mertcancam/react-test npm run test:unit
+  - docker run mertcancam/vue-test npm run test:unit
 
 after_success:
   - docker build -t mertcancam/risksoft-client ./client
@@ -20,11 +20,11 @@ after_success:
 
 deploy:
   provider: elasticbeanstalk
-  region: "us-east-2"
-  app: "multi-docker"
-  env: "MultiDocker-env"
-  bucket_name: "elasticbeanstalk-us-east-2-445187912941"
-  bucket_path: "multi-docker"
+  region: "eu-central-1"
+  app: "risksoft"
+  env: "Risksoft-env"
+  bucket_name: "elasticbeanstalk-eu-central-1-445187912941"
+  bucket_path: "risksoft"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
