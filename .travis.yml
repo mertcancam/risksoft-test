@@ -1,0 +1,32 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t mertcancam/vue-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run mertcancam/react-test npm run test:unit
+
+after_success:
+  - docker build -t mertcancam/risksoft-client ./client
+  - docker build -t mertcancam/risksoft-nginx ./nginx
+  - docker build -t mertcancam/risksoft-server ./server
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push mertcancam/risksoft-client
+  - docker push mertcancam/risksoft-nginx
+  - docker push mertcancam/risksoft-server
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-445187912941"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"

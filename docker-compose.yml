@@ -1,0 +1,48 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:alpine'
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_URL: postgres://admin:password@localhost:5432/new-risksoft
+      POSTGRES_DB: new-risksoft
+      POSTGRES_HOST: postgres
+  redis:
+    container_name: redis
+    image: 'redis:alpine'
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - '80:80'
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/server/node_modules
+      - ./server:/app/server
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POSTGRES_URI=postgres://admin:password@postgres:5432/new-risksoft
+      - KNEX_ENV=development
+      - NODE_ENV=development
+    links:
+      - postgres
+      - redis
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/client/node_modules
+      - ./client:/app/client
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8085:8080
