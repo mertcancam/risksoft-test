@@ -9,14 +9,13 @@ redisClient = redis.createClient({ host: config.rd.REDIS_HOST});
 
 const setToken = (key, value) => {
 
-  // WRITE NEW PROMISE AND HANDLE REFECTION
+  // WRITE NEW PROMISE AND HANDLE REJECTION
   
   return Promise.resolve(redisClient.set(key, value))
 }
 
 const getAuthTokenId = (req, res) => {
   const { authorization } = req.headers;
-  console.log(authorization);
   
   return redisClient.get(authorization, (err, reply) => {
     if(err || !reply) {

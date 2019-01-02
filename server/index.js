@@ -4,7 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const knexConfig = require('../knexfile');
+const knexConfig = require('./knexfile');
 const { Model } = require('objection');
 
 // Initialize knex.
@@ -21,7 +21,7 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-require('./routes')(app)
+require('./src/routes')(app)
 
 // NOTE: This is not a good error handler, this is the simplest one. See the error handing
 //       recipe for a better handler: http://vincit.github.io/objection.js/#error-handling
