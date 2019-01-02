@@ -22,7 +22,7 @@ deploy:
   provider: elasticbeanstalk
   region: "eu-central-1"
   app: "risksoft"
-  env: "Risksoft-env-1"
+  env: "Risksoft-env"
   bucket_name: "elasticbeanstalk-eu-central-1-445187912941"
   bucket_path: "risksoft"
   on:
