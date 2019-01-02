@@ -1,6 +1,6 @@
 const redis = require("redis")
 const config = require('../config/config')
-redisClient = redis.createClient({ host: config.rd.REDIS_HOST});
+const redisClient = require('../redis')
 
 requireAuth = (req, res, next) => {
   const { authorization } = req.headers;

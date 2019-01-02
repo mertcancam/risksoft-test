@@ -1,11 +1,8 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 const User = require('../models/User')
-const redis = require("redis")
-
-// Setup redis:
-
-redisClient = redis.createClient({ host: config.rd.REDIS_HOST});
+const redisClient = require('../redis')
+const keys = require('../keys')
 
 const setToken = (key, value) => {
 
