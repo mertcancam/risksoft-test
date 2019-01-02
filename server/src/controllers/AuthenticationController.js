@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const config = require('../config/config')
 const User = require('../models/User')
 const redisClient = require('../redis')
 const keys = require('../keys')
@@ -25,7 +24,7 @@ const getAuthTokenId = (req, res) => {
 const jwtSignUser = async (user) => {
   
   const ONE_WEEK = 60 * 60 * 24 * 2
-  const token = jwt.sign({email: user.email}, config.authentication.jwtSecret, {
+  const token = jwt.sign({email: user.email}, keys.jwtSecret, {
     expiresIn: ONE_WEEK
   })
 

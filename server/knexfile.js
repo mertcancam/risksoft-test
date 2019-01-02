@@ -7,7 +7,7 @@ module.exports = {
     connection: keys.POSTGRES_URI,
     pool: {
       min: 2,
-      max: 10
+      max: 1000
     }
   },
 
@@ -16,7 +16,7 @@ module.exports = {
     connection: keys.POSTGRES_URI,
     pool: {
       min: 2,
-      max: 10
+      max: 1000
     }
   },
 
@@ -25,7 +25,7 @@ module.exports = {
     connection: keys.POSTGRES_URI,
     pool: {
       min: 2,
-      max: 10
+      max: 1000
     }
   }
 

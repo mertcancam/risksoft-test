@@ -1,5 +1,4 @@
 const redis = require("redis")
-const config = require('../config/config')
 const redisClient = require('../redis')
 
 requireAuth = (req, res, next) => {
