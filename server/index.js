@@ -21,6 +21,10 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
+app.get('/api', (req, res) => {
+  res.status(200).json("Welcome to new risksoft");
+})
+
 require('./src/routes')(app)
 
 // NOTE: This is not a good error handler, this is the simplest one. See the error handing
