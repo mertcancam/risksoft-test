@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 const redisClient = require('../redis')
 const keys = require('../keys')
+const { transaction } = require('objection');
 
 const setToken = (key, value) => {
 
@@ -67,14 +68,19 @@ const handleLogin = async (req, res) => {
     
   }
   
-}
+} 
 
 module.exports = {
   async register (req, res) {
     try {
       const { email, password } = req.body;
 
-      const user = await User.query().insert({email, password})
+      const user = await transaction(User.knex(), async trx => {
+        return await User.query(trx).insert({email, password})
+      });
+      console.log(user);
+      
+      
       const userJson = user.toJSON()
       
       res.status(200).json(userJson.id);

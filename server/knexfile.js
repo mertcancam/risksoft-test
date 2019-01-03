@@ -1,9 +1,11 @@
 const keys = require('./src/keys')
+const pg = require('pg')
+pg.defaults.ssl = true
 
 module.exports = {
 
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: keys.POSTGRES_URI,
     pool: {
       min: 2,
@@ -12,7 +14,7 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: keys.POSTGRES_URI,
     pool: {
       min: 2,
@@ -21,7 +23,7 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: keys.POSTGRES_URI,
     pool: {
       min: 2,
